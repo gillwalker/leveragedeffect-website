@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Gill Richard | Leveraged Effect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --blue: #29ABE2; --blue-dark: #1a8bbf;
+      --white: #ffffff; --gray: #f4f4f4; --mid-gray: #888;
+      --dark-gray: #1a1a1a; --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--white); line-height: 1; }
+    .nav-wordmark span { color: var(--blue); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-family: 'Barlow', sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: var(--black) !important; padding: 10px 22px; font-weight: 700 !important; }
+    .nav-cta:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+
+    /* HERO — split layout */
+    .about-hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .about-hero-left {
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero-left::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.08) 0%, transparent 70%);
+    }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(41,171,226,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(41,171,226,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .about-hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark-gray);
+    }
+    .about-hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(15%);
+    }
+    .about-hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.3) 0%, transparent 40%);
+    }
+    .about-hero-content { position: relative; z-index: 1; }
+    .breadcrumb { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--blue); }
+    .about-name { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: 0.95; margin-bottom: 12px; }
+    .about-name span { color: var(--blue); }
+    .about-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.45); margin-bottom: 40px; }
+    .about-intro { font-size: 17px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.7); margin-bottom: 40px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--blue); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 36px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--blue-dark); color: var(--white); transform: translateY(-2px); }
+
+    /* STORY */
+    .story-section { background: var(--white); color: var(--black); padding: 100px 48px; }
+    .story-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+    .story-sidebar { position: sticky; top: 100px; }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 24px; }
+    .sidebar-stats { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
+    .sidebar-stat { background: var(--black); color: var(--white); padding: 24px 28px; }
+    .sidebar-stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 900; color: var(--blue); line-height: 1; }
+    .sidebar-stat-label { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .story-body { font-size: 17px; font-weight: 300; line-height: 1.9; color: #333; }
+    .story-body p { margin-bottom: 24px; }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-pull { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; text-transform: uppercase; line-height: 1.2; color: var(--black); border-left: 4px solid var(--blue); padding-left: 24px; margin: 40px 0; }
+
+    /* PURPOSE BAND */
+    .purpose-band { background: var(--blue); color: var(--black); padding: 80px 48px; }
+    .purpose-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .purpose-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.6; margin-bottom: 20px; }
+    .purpose-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; text-transform: uppercase; line-height: 1.05; margin-bottom: 20px; }
+    .purpose-body { font-size: 17px; font-weight: 400; line-height: 1.7; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+    /* CREDENTIALS */
+    .cred-section { background: var(--dark-gray); padding: 100px 48px; }
+    .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+    .cred-card { background: var(--black); padding: 44px 36px; border-top: 3px solid var(--blue); }
+    .cred-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--white); margin-bottom: 12px; }
+    .cred-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* CTA */
+    .cta-section { background: var(--black); padding: 120px 48px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(41,171,226,0.1) 0%, transparent 70%); }
+    .cta-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 20px; position: relative; }
+    .cta-headline span { color: var(--blue); }
+    .cta-sub { font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto 48px; line-height: 1.7; position: relative; }
+
+    footer { background: var(--dark-gray); border-top: 1px solid var(--border); padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-brand { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; color: var(--white); }
+    .footer-brand span { color: var(--blue); }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; } .nav-links { display: none; }
+      .about-hero { grid-template-columns: 1fr; min-height: auto; }
+      .about-hero-right { height: 400px; }
+      .about-hero-left { padding: 60px 24px; }
+      .story-section, .cred-section, .cta-section { padding: 72px 24px; }
+      .story-inner { grid-template-columns: 1fr; gap: 48px; }
+      .story-sidebar { position: static; }
+      .cred-grid { grid-template-columns: 1fr; }
+      .purpose-band { padding: 60px 24px; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">LEVERAGED <span>EFFECT</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="5voices.html">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="nav-cta">Schedule a Meeting</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="about-hero">
+    <div class="about-hero-left">
+      <div class="hero-grid"></div>
+      <div class="about-hero-content">
+        <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; About</p>
+        <h1 class="about-name">Gill<br><span>Richard</span></h1>
+        <p class="about-title">Founder, Leveraged Effect</p>
+        <p class="about-intro">I want you to be 100% healthy as a leader — and to multiply that in every sphere of influence you carry.</p>
+        <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary">Schedule a Meeting →</a>
+      </div>
+    </div>
+    <div class="about-hero-right">
+      <img src="headshot.png" alt="Gill Richard, Founder of Leveraged Effect" />
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div class="story-sidebar">
+        <p class="section-label">My Story</p>
+        <h2 class="section-headline">Built from the Inside Out</h2>
+        <div class="sidebar-stats">
+          <div class="sidebar-stat">
+            <div class="sidebar-stat-num">20+</div>
+            <div class="sidebar-stat-label">Years Coaching & Mentoring</div>
+          </div>
+          <div class="sidebar-stat">
+            <div class="sidebar-stat-num">25</div>
+            <div class="sidebar-stat-label">Years in the Technology Industry</div>
+          </div>
+          <div class="sidebar-stat">
+            <div class="sidebar-stat-num">US</div>
+            <div class="sidebar-stat-label">Facilitation Across the Country</div>
+          </div>
+        </div>
+      </div>
+      <div class="story-body">
+        <p>Leveraged Effect is all about helping you save time and use less energy to achieve your big goals — both personally and professionally. If it was easy, you'd already be doing it.</p>
+        <div class="story-pull">Leaders Fight for the Highest Possible Good in the Lives of Those They Lead.</div>
+        <p>I want to help you be a fully engaged leader — one who brings high support and high challenge to your team. The kind of leader who can identify the tendencies that undermine their influence and limit their ability to grow. That's the work we do together.</p>
+        <p>I've been coaching and mentoring for over 20 years, and I bring 25 years of experience from the technology industry as a trainer, sales leader, and senior executive. I've sat in the seat you're sitting in. I know what the pressure feels like, and I know what it takes to move through it.</p>
+        <p>I've also had the privilege of leading a number of nonprofit Boards and facilitating leadership development events across the United States. That breadth of context — across industries, organization types, and leadership levels — shapes every engagement I take on.</p>
+        <p>If you think I can help you or your business take it to the next level, I'd love to have a conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PURPOSE BAND -->
+  <section class="purpose-band">
+    <div class="purpose-inner">
+      <p class="purpose-label">Why I Do This</p>
+      <h2 class="purpose-headline">Real Transformation Happens in the Context of Strong, Healthy Relationships.</h2>
+      <p class="purpose-body">Books, conferences, and podcasts have their place. But they don't produce lasting change on their own. Sustainable transformation requires a trusted person in the room — someone with the experience to challenge you, the commitment to stay with you, and the wisdom to know the difference.</p>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="cred-section">
+    <p class="section-label">Experience & Background</p>
+    <h2 class="section-headline" style="color:white;">What I Bring to the Table</h2>
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-title">Technology Industry</div>
+        <div class="cred-desc">25 years across training, sales leadership, and the executive suite. Real-world business experience that informs every coaching conversation.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-title">Nonprofit Leadership</div>
+        <div class="cred-desc">Led multiple nonprofit Boards and facilitated events across the United States — experience that sharpens perspective across sectors and leadership styles.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-title">Certified 5 Voices Guide</div>
+        <div class="cred-desc">A certified practitioner of the GiANT 5 Voices methodology — tested and proven across hundreds of organizations in every vertical market.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-headline">Let's Have<br><span>A Real Conversation.</span></h2>
+    <p class="cta-sub">No pitch. No pressure. Just 30 minutes to talk about where you are and whether I can help you get where you want to go.</p>
+    <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary" style="font-size:18px; padding:20px 48px;">Schedule a Meeting →</a>
+  </section>
+
+  <footer>
+    <div class="footer-brand">LEVERAGED <span>EFFECT</span></div>
+    <ul class="footer-links">
+      <li><a href="5voices.html">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Leveraged Effect, LLC</div>
+  </footer>
+
+</body>
+</html>

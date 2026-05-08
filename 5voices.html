@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Voices for Teams | Leveraged Effect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --blue: #29ABE2;
+      --blue-dark: #1a8bbf;
+      --white: #ffffff;
+      --gray: #f4f4f4;
+      --mid-gray: #888;
+      --dark-gray: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--white); line-height: 1; }
+    .nav-wordmark span { color: var(--blue); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-family: 'Barlow', sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: var(--black) !important; padding: 10px 22px; font-weight: 700 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+
+    /* PAGE HERO */
+    .page-hero {
+      min-height: 70vh; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 120px 48px 80px; position: relative; overflow: hidden;
+      background: var(--black);
+    }
+    .page-hero::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 60%; height: 100%;
+      background: linear-gradient(135deg, rgba(41,171,226,0.08) 0%, transparent 60%);
+    }
+    .page-hero::after {
+      content: ''; position: absolute; top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.15) 0%, transparent 70%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(41,171,226,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(41,171,226,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .page-hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .breadcrumb { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--blue); }
+    .page-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 8vw, 96px); font-weight: 900; line-height: 0.95; text-transform: uppercase; margin-bottom: 28px; }
+    .page-title span { color: var(--blue); }
+    .page-subtitle { font-size: 18px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.65); max-width: 560px; margin-bottom: 40px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--blue); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 36px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--blue-dark); color: var(--white); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    .section { padding: 100px 48px; }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 54px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 40px; }
+
+    /* WHAT IS IT */
+    .what-section { background: var(--white); color: var(--black); }
+    .what-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .what-body { font-size: 16px; font-weight: 300; line-height: 1.8; color: #444; margin-bottom: 16px; }
+    .what-emphasis { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--blue); margin-top: 8px; }
+    .what-right { display: flex; flex-direction: column; gap: 2px; }
+    .outcome-item { background: var(--black); color: var(--white); padding: 28px 32px; border-left: 3px solid var(--blue); }
+    .outcome-item h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
+    .outcome-item p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* WHO */
+    .who-section { background: var(--dark-gray); }
+    .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+    .who-card { background: var(--black); padding: 40px 32px; }
+    .who-icon { font-size: 32px; margin-bottom: 16px; }
+    .who-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--white); margin-bottom: 12px; }
+    .who-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* HOW IT WORKS */
+    .how-section { background: var(--white); color: var(--black); }
+    .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+    .step { display: grid; grid-template-columns: 80px 1fr; gap: 40px; align-items: start; background: var(--gray); padding: 40px 48px; }
+    .step-num { font-family: 'Barlow Condensed', sans-serif; font-size: 64px; font-weight: 900; color: var(--blue); line-height: 1; }
+    .step-content h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+    .step-content p { font-size: 15px; font-weight: 300; color: #555; line-height: 1.7; }
+
+    /* GUARANTEE */
+    .guarantee-section { background: var(--blue); color: var(--black); padding: 80px 48px; }
+    .guarantee-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .guarantee-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.6; margin-bottom: 16px; }
+    .guarantee-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 54px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 24px; }
+    .guarantee-body { font-size: 16px; font-weight: 400; line-height: 1.7; opacity: 0.8; }
+    .guarantee-right { display: flex; flex-direction: column; gap: 24px; }
+    .guarantee-item { display: flex; align-items: flex-start; gap: 16px; }
+    .guarantee-check { font-size: 20px; margin-top: 2px; }
+    .guarantee-item-text h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
+    .guarantee-item-text p { font-size: 14px; opacity: 0.75; line-height: 1.6; }
+
+    /* CTA */
+    .cta-section { background: var(--black); padding: 120px 48px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(41,171,226,0.1) 0%, transparent 70%); }
+    .cta-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 20px; position: relative; }
+    .cta-headline span { color: var(--blue); }
+    .cta-sub { font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto 48px; line-height: 1.7; position: relative; }
+
+    /* FOOTER */
+    footer { background: var(--dark-gray); border-top: 1px solid var(--border); padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-brand { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.05em; color: var(--white); }
+    .footer-brand span { color: var(--blue); }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 100px 24px 60px; }
+      .section { padding: 72px 24px; }
+      .what-inner, .guarantee-inner { grid-template-columns: 1fr; gap: 48px; }
+      .who-grid { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 1fr; gap: 8px; padding: 32px 24px; }
+      .step-num { font-size: 48px; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">LEVERAGED <span>EFFECT</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="5voices.html" class="active">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="nav-cta">Schedule a Meeting</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <div class="hero-grid"></div>
+    <div class="page-hero-content">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; 5 Voices for Teams</p>
+      <h1 class="page-title">5 Voices<br><span>for Teams</span></h1>
+      <p class="page-subtitle">A proven leadership language that transforms how your team communicates, aligns, and executes — from the C-suite to every emerging leader.</p>
+      <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary">Schedule a Meeting →</a>
+    </div>
+  </section>
+
+  <!-- WHAT IS IT -->
+  <section class="section what-section">
+    <div class="what-inner">
+      <div class="what-left">
+        <p class="section-label">What It Is</p>
+        <h2 class="section-headline">A Common Language That Actually Works</h2>
+        <p class="what-body">5 Voices for Teams gives everyone in your organization a shared framework for understanding how they lead, how they communicate, and how they contribute. It goes beyond a personality assessment — it's an operating system for your team.</p>
+        <p class="what-body">We deliver this through a combination of in-person sessions, visual tools, and an online platform that reinforces key concepts and tracks engagement over time. Engagements typically run 3–12 months or more, working with teams of teams across your organization.</p>
+        <p class="what-emphasis">Simple. Scalable. Sustainable.</p>
+      </div>
+      <div class="what-right">
+        <div class="outcome-item">
+          <h4>Measurably Improved Team Performance</h4>
+          <p>Communication, alignment, and execution — all move in the right direction.</p>
+        </div>
+        <div class="outcome-item">
+          <h4>Clearer Communication of Tasks & Expectations</h4>
+          <p>Leaders learn to communicate what they need in ways their team actually hears.</p>
+        </div>
+        <div class="outcome-item">
+          <h4>More Effective Critique & Clarity</h4>
+          <p>Teams develop the skills to give and receive feedback without the drama.</p>
+        </div>
+        <div class="outcome-item">
+          <h4>Fully Leveraged Talent</h4>
+          <p>Unlock the collective experience and strengths of everyone on the team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section who-section">
+    <p class="section-label">Who It's For</p>
+    <h2 class="section-headline">Built for Every Level of Your Organization</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-icon">🏢</div>
+        <div class="who-title">Executive & C-Suite</div>
+        <div class="who-desc">Senior leaders who want to model healthy communication and set the tone for the entire organization.</div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">👥</div>
+        <div class="who-title">Team Leaders & Managers</div>
+        <div class="who-desc">People leading teams who need a practical framework to improve how they run meetings, delegate, and develop their people.</div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🚀</div>
+        <div class="who-title">Emerging Leaders</div>
+        <div class="who-desc">Up-and-coming talent who are ready to grow their self-awareness and leadership capacity before they hit the ceiling.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how-section">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-headline">The Engagement Process</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Discovery Conversation</h4>
+          <p>We start with a 30-minute conversation to understand your team's specific challenges, goals, and context. No generic solutions — everything is tailored to where you actually are.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Assessment & Baseline</h4>
+          <p>Each participant completes an online assessment that establishes their 5 Voices profile. This gives us a data-driven baseline and creates the foundation for everything that follows.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>In-Person or Zoom Sessions</h4>
+          <p>We work with your teams through facilitated sessions — preferably in person, and fully capable over Zoom. Visual tools and real-world application make the content stick.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Ongoing Reinforcement</h4>
+          <p>The online platform delivers content and tracks completion over the 3–12+ month engagement. Dynamic reporting keeps leadership informed on engagement and progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="guarantee-section">
+    <div class="guarantee-inner">
+      <div>
+        <p class="guarantee-label">Our Commitment</p>
+        <h2 class="guarantee-headline">A Metrics-Backed Guarantee</h2>
+        <p class="guarantee-body">This methodology is actively used across every vertical market in businesses of all sizes. We don't just believe it works — we guarantee it with metrics, reporting, and accountability built into every engagement.</p>
+      </div>
+      <div class="guarantee-right">
+        <div class="guarantee-item">
+          <div class="guarantee-check">✓</div>
+          <div class="guarantee-item-text">
+            <h4>Dynamic Reporting</h4>
+            <p>Real-time data on engagement and assignment completion through the platform.</p>
+          </div>
+        </div>
+        <div class="guarantee-item">
+          <div class="guarantee-check">✓</div>
+          <div class="guarantee-item-text">
+            <h4>Proven Across Every Vertical</h4>
+            <p>Tested and refined across hundreds of businesses in every industry.</p>
+          </div>
+        </div>
+        <div class="guarantee-item">
+          <div class="guarantee-check">✓</div>
+          <div class="guarantee-item-text">
+            <h4>Long-Term Engagement</h4>
+            <p>Not a one-day workshop. We stay with you for 3–12+ months to ensure real transformation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-headline">Ready to Give Your Team<br><span>A Common Language?</span></h2>
+    <p class="cta-sub">Start with a 30-minute conversation. No pressure, no pitch — just a real discussion about where your team is and where you want to go.</p>
+    <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary" style="font-size:18px; padding:20px 48px;">Schedule a Meeting →</a>
+  </section>
+
+  <footer>
+    <div class="footer-brand">LEVERAGED <span>EFFECT</span></div>
+    <ul class="footer-links">
+      <li><a href="5voices.html">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Leveraged Effect, LLC</div>
+  </footer>
+
+</body>
+</html>
