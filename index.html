@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leveraged Effect | Build Leaders Worth Following</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --blue: #29ABE2;
+      --blue-dark: #1a8bbf;
+      --white: #ffffff;
+      --gray: #f4f4f4;
+      --mid-gray: #888;
+      --dark-gray: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 36px;
+      height: 36px;
+    }
+
+    .nav-wordmark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .nav-wordmark span {
+      color: var(--blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    .nav-cta {
+      background: var(--blue);
+      color: var(--black) !important;
+      padding: 10px 22px;
+      font-weight: 700 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      z-index: 0;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(41,171,226,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41,171,226,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(56px, 8vw, 100px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-headline .blue { color: var(--blue); }
+
+    .hero-subhead {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.6s;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blue);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--white);
+      border-color: var(--white);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1.2s;
+    }
+
+    .hero-scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .hero-scroll-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+    }
+
+    /* ── PAIN SECTION ── */
+    .pain-section {
+      background: var(--white);
+      color: var(--black);
+      padding: 100px 48px;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .section-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 60px;
+      max-width: 700px;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-bottom: 60px;
+    }
+
+    .pain-card {
+      background: var(--black);
+      color: var(--white);
+      padding: 40px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .pain-card:hover {
+      background: var(--blue);
+      color: var(--black);
+    }
+
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--blue);
+      transition: width 0.3s;
+    }
+
+    .pain-card:hover::before {
+      background: var(--black);
+      width: 3px;
+    }
+
+    .pain-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .pain-card:hover .pain-number {
+      color: rgba(0,0,0,0.1);
+    }
+
+    .pain-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pain-roi {
+      background: var(--gray);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .pain-roi-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.2;
+      max-width: 600px;
+    }
+
+    .pain-roi-text span {
+      color: var(--blue);
+    }
+
+    /* ── INSIGHT SECTION ── */
+    .insight-section {
+      background: var(--dark-gray);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insight-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(41,171,226,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .insight-inner {
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .insight-quote {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+
+    .insight-quote .blue { color: var(--blue); }
+
+    .insight-body {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 20px;
+    }
+
+    .insight-emphasis {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--blue);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SERVICES SECTION ── */
+    .services-section {
+      background: var(--white);
+      color: var(--black);
+      padding: 100px 48px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+
+    .service-card {
+      background: var(--black);
+      color: var(--white);
+      padding: 52px 40px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card.featured {
+      background: var(--blue);
+      color: var(--black);
+    }
+
+    .service-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .service-card.featured .service-tag {
+      color: var(--black);
+    }
+
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .service-desc {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      flex: 1;
+      margin-bottom: 36px;
+    }
+
+    .service-card.featured .service-desc {
+      color: rgba(0,0,0,0.7);
+    }
+
+    .service-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(41,171,226,0.3);
+      padding-bottom: 2px;
+      transition: gap 0.2s;
+    }
+
+    .service-card.featured .service-link {
+      color: var(--black);
+      border-color: rgba(0,0,0,0.3);
+    }
+
+    .service-link:hover { gap: 14px; }
+
+    .service-badge {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      background: var(--black);
+      color: var(--blue);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    /* ── METHODOLOGY SECTION ── */
+    .method-section {
+      background: var(--black);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .method-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .method-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .method-left .section-label { color: var(--blue); }
+
+    .method-left .section-headline { color: var(--white); margin-bottom: 28px; }
+
+    .method-body {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    .method-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .pillar {
+      background: var(--dark-gray);
+      padding: 28px 24px;
+      border-left: 3px solid var(--blue);
+    }
+
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .pillar-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    /* ── CREDIBILITY ── */
+    .cred-section {
+      background: var(--blue);
+      color: var(--black);
+      padding: 60px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .cred-stat {
+      text-align: center;
+    }
+
+    .cred-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .cred-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+      opacity: 0.75;
+    }
+
+    .cred-divider {
+      width: 1px;
+      height: 80px;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .cred-text {
+      max-width: 480px;
+    }
+
+    .cred-text p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: var(--black);
+      padding: 120px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(41,171,226,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section .section-headline {
+      color: var(--white);
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .cta-section .section-headline span { color: var(--blue); }
+
+    .cta-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-gray);
+      border-top: 1px solid var(--border);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .footer-brand span { color: var(--blue); }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--blue); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .pain-section, .insight-section, .services-section,
+      .method-section, .cta-section { padding: 72px 24px; }
+      .pain-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .method-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cred-section { flex-direction: column; padding: 60px 24px; }
+      .cred-divider { width: 80px; height: 1px; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+      .pain-roi { flex-direction: column; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="22" height="84" fill="white"/>
+        <rect x="8" y="70" width="60" height="22" fill="white"/>
+        <polygon points="30,8 84,8 84,28 50,28" fill="#29ABE2"/>
+        <rect x="30" y="44" width="44" height="20" fill="#29ABE2"/>
+      </svg>
+      <div class="nav-wordmark">LEVERAGED <span>EFFECT</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="5voices.html">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="nav-cta">Schedule a Meeting</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid-lines"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Leadership Development &amp; Team Performance</p>
+      <h1 class="hero-headline">
+        Build Leaders<br><span class="blue">Worth Following.</span>
+      </h1>
+      <p class="hero-subhead">
+        You can't run a great business and invest the time it takes to develop exceptional leaders. That's what we're here for. Simple. Scalable. Sustainable.
+      </p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary">
+          Schedule a Meeting →
+        </a>
+        <a href="5voices.html" class="btn-secondary">See Our Approach</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span class="hero-scroll-text">Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="pain-section">
+    <p class="section-label">Recognize Any of These?</p>
+    <h2 class="section-headline">The Problems Holding Your Team Back</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-number">01</div>
+        <div class="pain-title">Bad &amp; Boring Meetings</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">02</div>
+        <div class="pain-title">Missed Deadlines</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">03</div>
+        <div class="pain-title">High Attrition</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">04</div>
+        <div class="pain-title">Ineffective Hiring</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-number">05</div>
+        <div class="pain-title">Workplace Drama</div>
+      </div>
+    </div>
+    <div class="pain-roi">
+      <p class="pain-roi-text">Moving the needle even <span>10%</span> on any of these could result in <span>significant ROI.</span></p>
+      <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary">Let's Talk →</a>
+    </div>
+  </section>
+
+  <!-- INSIGHT -->
+  <section class="insight-section">
+    <div class="insight-inner">
+      <h2 class="insight-quote">
+        Why Books, Conferences &amp;<br><span class="blue">Podcasts Don't Work.</span>
+      </h2>
+      <p class="insight-body">
+        If true transformation is your goal, there is one major problem with investing more time and money into books, conferences, podcasts, and self-help gurus. They don't work. Not for the long haul.
+      </p>
+      <p class="insight-body">
+        Real transformation always takes place in the context of strong, healthy leaders who model strong, healthy relationships. You can't shortcut it.
+      </p>
+      <p class="insight-emphasis">Relationships catalyze growth.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section">
+    <p class="section-label">How We Work Together</p>
+    <h2 class="section-headline">Three Ways to Get a Leveraged Effect</h2>
+    <div class="services-grid">
+      <div class="service-card featured">
+        <div class="service-badge">Most Popular</div>
+        <p class="service-tag">⭐ Featured Program</p>
+        <h3 class="service-name">5 Voices for Teams</h3>
+        <p class="service-desc">
+          A proven methodology that gives your entire organization — from the C-suite to emerging leaders — a common leadership language. Simple, scalable, and built for the long haul. Delivered in person or via Zoom over 3–12+ months.
+        </p>
+        <a href="5voices.html" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-card">
+        <p class="service-tag">1:1 Work</p>
+        <h3 class="service-name">Business Coaching &amp; Consulting</h3>
+        <p class="service-desc">
+          Personalized coaching to help you identify the tendencies that undermine your influence and limit your ability to grow. High support, high challenge — built around your specific context.
+        </p>
+        <a href="coaching.html" class="service-link">Learn More →</a>
+      </div>
+      <div class="service-card">
+        <p class="service-tag">Cohort Program</p>
+        <h3 class="service-name">5 Voices Leader Academy</h3>
+        <p class="service-desc">
+          A structured development program for up-and-coming leaders in your organization. Equip the next generation with the self-awareness and communication skills to lead well.
+        </p>
+        <a href="academy.html" class="service-link">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="method-section">
+    <div class="method-inner">
+      <div class="method-left">
+        <p class="section-label">Our Approach</p>
+        <h2 class="section-headline" style="color:white;">A Common Language That Actually Sticks</h2>
+        <p class="method-body">
+          We deliver a leadership language that is simple, scalable, and sustainable — one that works from the boardroom to the front line. Using in-person learning, visual tools, and an online platform for assessments and content, we reinforce key concepts over time.
+        </p>
+        <p class="method-body">
+          This methodology is tested and proven across hundreds of businesses in every vertical market and every size of company. We back it with a metrics-based guarantee and dynamic reporting on engagement and completion.
+        </p>
+      </div>
+      <div class="method-pillars">
+        <div class="pillar">
+          <div class="pillar-title">Simple</div>
+          <div class="pillar-desc">Easy to understand and apply immediately across your organization.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Scalable</div>
+          <div class="pillar-desc">Works from the C-suite to every emerging leader in your company.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Sustainable</div>
+          <div class="pillar-desc">Designed for the long haul — not a one-day workshop that fades.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Guaranteed</div>
+          <div class="pillar-desc">Metrics-backed results with dynamic reporting on your investment.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY -->
+  <section class="cred-section">
+    <div class="cred-stat">
+      <div class="cred-number">20+</div>
+      <div class="cred-label">Years Coaching &amp; Mentoring</div>
+    </div>
+    <div class="cred-divider"></div>
+    <div class="cred-stat">
+      <div class="cred-number">25</div>
+      <div class="cred-label">Years in Technology Industry</div>
+    </div>
+    <div class="cred-divider"></div>
+    <div class="cred-stat">
+      <div class="cred-number">100s</div>
+      <div class="cred-label">Businesses Served</div>
+    </div>
+    <div class="cred-divider"></div>
+    <div class="cred-text">
+      <p>Tested &amp; proven in every vertical market, every size of business.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <p class="section-label" style="color:var(--blue);">Ready to Move Your Big Rocks?</p>
+    <h2 class="section-headline">
+      If It Was Easy, You'd<br><span>Already Be Doing It.</span>
+    </h2>
+    <p class="cta-sub">
+      Getting a Leveraged Effect means using less energy and achieving a massive return on investment. Let's start with a 30-minute conversation.
+    </p>
+    <a href="https://calendly.com/leveragedeffect/30-minute-zoom-meeting" target="_blank" class="btn-primary" style="font-size:18px; padding:20px 48px;">
+      Schedule a Meeting →
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">LEVERAGED <span>EFFECT</span></div>
+    <ul class="footer-links">
+      <li><a href="5voices.html">5 Voices for Teams</a></li>
+      <li><a href="coaching.html">Coaching</a></li>
+      <li><a href="academy.html">Leader Academy</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Leveraged Effect, LLC · gill@leveragedeffect.com</div>
+  </footer>
+
+</body>
+</html>
