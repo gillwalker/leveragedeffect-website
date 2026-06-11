@@ -6,7 +6,6 @@
 <title>Windrider Summit · Getting There</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
   :root{
     --ink:#162232;
@@ -241,6 +240,27 @@
   .ticket-foot .amount{font-family:var(--display); font-size:2.2rem; color:var(--rust);}
   .ticket-note{font-family:var(--mono); font-size:0.78rem; color:var(--ink-soft); opacity:0.8; padding:14px 28px 22px;}
 
+  /* ---------- EXEC SUMMARY (dynamic) ---------- */
+  .sum-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+    padding:24px 28px;
+  }
+  @media (max-width:720px){
+    .sum-grid{grid-template-columns:repeat(auto-fit, minmax(150px,1fr));}
+  }
+  .sum-card{
+    border:1px solid var(--line-dark); border-radius:8px; padding:16px 18px; background:var(--paper-dim);
+  }
+  .sum-card .label{font-family:var(--mono); font-size:0.66rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-soft); opacity:0.75;}
+  .sum-card .value{font-family:var(--display); font-size:1.9rem; margin-top:6px; color:var(--ink);}
+  .sum-card .value small{font-family:var(--mono); font-size:0.75rem; color:var(--ink-soft); opacity:0.75; margin-left:4px;}
+  .sum-card.highlight{border-color:var(--rust);}
+  .sum-card.highlight .value{color:var(--rust);}
+  .sum-recommendation{
+    margin:0 28px 28px; font-size:1rem; padding:18px 20px; border-radius:8px;
+    background:var(--paper-dim); border-left:4px solid var(--amber); max-width:none;
+  }
+
   /* ---------- SIMULATOR ---------- */
   .sim-section{background:var(--paper);}
   .sim-panel{
@@ -350,7 +370,7 @@
     display:block; font-family:var(--mono); font-size:0.68rem; letter-spacing:0.15em;
     text-transform:uppercase; color:var(--slate); margin-bottom:8px;
   }
-  .sim-field select, .sim-field input[type="number"]{
+  .sim-field select, .sim-field input[type="number"], .sim-field input[type="text"]{
     font-family:var(--mono); font-size:1.05rem; background:var(--ink-soft);
     border:1px solid var(--line); border-radius:6px; color:var(--paper); padding:9px 12px;
     min-width:160px;
@@ -388,25 +408,6 @@
     margin-top:40px; border:1px solid var(--line); border-radius:10px; overflow:hidden;
     background:var(--ink-soft);
   }
-  #liveMap{ height:480px; width:100%; background:#1E2D40; }
-  .livemap-controls{
-    display:flex; flex-wrap:wrap; gap:10px 24px; padding:18px 22px;
-    border-top:1px solid var(--line); font-family:var(--mono); font-size:0.82rem;
-  }
-  .livemap-controls label{
-    display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;
-  }
-  .livemap-controls input[type="checkbox"]{
-    width:16px; height:16px; accent-color:var(--amber); cursor:pointer;
-  }
-  .livemap-controls .swatch{
-    width:22px; height:4px; border-radius:2px; display:inline-block;
-  }
-  .leaflet-popup-content-wrapper{
-    background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:0.8rem;
-    border-radius:6px;
-  }
-  .leaflet-popup-tip{background:var(--ink);}
 
   /* ---------- STUDENT GUIDE ---------- */
   .guide-section{background:var(--ink); color:var(--paper);}
@@ -474,7 +475,7 @@
     <div class="board">
       <div class="board-title"><span><span class="dot"></span>NEXT DEPARTURES &mdash; SAMPLE DAY</span><span>ASCENT&nbsp;&rarr;&nbsp;BOULDER</span></div>
       <div class="board-row head">
-        <span>Service</span><span>Departs</span><span>From</span><span>Status</span>
+        <span>Service</span><span>Departs / Freq.</span><span>From</span><span>Status</span>
       </div>
       <div class="board-row">
         <span>Hotel Shuttle Van</span><span class="flap">07:00</span><span>Hotel &harr; Ascent</span><span class="status free">Included</span>
@@ -486,16 +487,13 @@
         <span>Hotel Shuttle Van</span><span class="flap">11:30</span><span>Triangle Loop</span><span class="status free">Hotel/Ascent/RTD</span>
       </div>
       <div class="board-row">
+        <span>Charter 40&#8209;pax &middot; All Day</span><span class="flap">11:30</span><span>Pearl St, Boulder</span><span class="status">Chartered</span>
+      </div>
+      <div class="board-row">
         <span>RTD Flatiron Flyer</span><span class="flap">12:18</span><span>US36 &amp; McCaslin</span><span class="status">~$3 / leg</span>
       </div>
       <div class="board-row">
-        <span>Charter 50&#8209;pax &middot; Evening</span><span class="flap">17:00</span><span>Pearl St, Boulder</span><span class="status">Chartered</span>
-      </div>
-      <div class="board-row">
-        <span>HOP Bus (Boulder)</span><span class="flap">21:15</span><span>Downtown Boulder Stn</span><span class="status free">Free in fest.</span>
-      </div>
-      <div class="board-row">
-        <span>Charter 27&#8209;pax &middot; Late Loop</span><span class="flap">23:05</span><span>Pearl St, Boulder</span><span class="status">Chartered</span>
+        <span>HOP Bus (Boulder)</span><span class="flap">~12 min</span><span>Downtown Boulder Stn</span><span class="status free">Free in fest.</span>
       </div>
     </div>
   </div>
@@ -532,7 +530,7 @@
           <div class="lbl-rtd">
             <span class="unit">Flatiron Flyer</span>
             <b id="rtdVal">200</b>
-            <span class="unit">free pass</span>
+            <span class="unit">$3/trip</span>
           </div>
           <div class="lbl-charter">
             <span class="unit">Blue River Events</span>
@@ -540,7 +538,7 @@
             <span class="unit">chartered</span>
           </div>
         </div>
-        <p class="hint" style="margin-top:22px;">Left dot sets the cars/RTD boundary, right dot sets the RTD/charter boundary. Pushing the right dot left shrinks the charter &mdash; with free RTD passes, that's nearly free to do.</p>
+        <p class="hint" style="margin-top:22px;">Left dot sets the cars/RTD boundary, right dot sets the RTD/charter boundary. RTD is currently modeled at $3/trip ($6 round trip per person) &mdash; we're hoping to secure free festival passes, but that's not yet confirmed.</p>
       </div>
 
       <div class="sim-divider"></div>
@@ -557,8 +555,8 @@
             <select id="busSize">
               <option value="14">14-passenger van &mdash; $205/hr (4hr min)</option>
               <option value="27">27-passenger bus &mdash; $275/hr (5hr min)</option>
-              <option value="40">40-passenger bus &mdash; $295/hr (5hr min)</option>
-              <option value="50" selected>50-passenger bus &mdash; $315/hr (5hr min)</option>
+              <option value="40" selected>40-passenger bus &mdash; $295/hr (5hr min)</option>
+              <option value="50">50-passenger bus &mdash; $315/hr (5hr min)</option>
             </select>
           </div>
           <div class="sim-field">
@@ -570,8 +568,8 @@
             <input type="number" id="busHours" value="5" min="1" max="14" step="1">
           </div>
           <div class="sim-field">
-            <label for="tripsPerDay">Round Trips / Bus / Day</label>
-            <input type="number" id="tripsPerDay" value="5" min="1" max="12" step="1">
+            <label for="tripMinutes">One-Way Trip Time (min)</label>
+            <input type="number" id="tripMinutes" value="30" min="5" max="180" step="5">
           </div>
         </div>
         <p class="hint" style="margin-top:12px;">Each round trip carries an outbound load <i>and</i> a return load &mdash; so 100 charter riders actually represent 200 seat-legs (100 out, 100 back) to be spread across the day's round trips.</p>
@@ -583,8 +581,8 @@
           <div class="ro-value" id="roCapacity">50 <small>seats/trip</small></div>
         </div>
         <div class="ro-card">
-          <div class="ro-label">Total Trips / Day</div>
-          <div class="ro-value" id="roTrips">5 <small>trips</small></div>
+          <div class="ro-label">One-Way Trips / Day</div>
+          <div class="ro-value" id="roTrips">10 <small>trips</small></div>
         </div>
         <div class="ro-card highlight" id="roLoadCard">
           <div class="ro-label">Avg. Riders / Trip</div>
@@ -607,8 +605,8 @@
           <div class="ro-value" id="roPerRider">$3.15</div>
         </div>
         <div class="ro-card">
-          <div class="ro-label">RTD Fare Cost (free)</div>
-          <div class="ro-value" id="roRtdCost">$0 <small>was $900</small></div>
+          <div class="ro-label">RTD Fare Cost / Day</div>
+          <div class="ro-value" id="roRtdCost">$1,800 <small>round trip</small></div>
         </div>
         <div class="ro-card">
           <div class="ro-label">4-Day Charter Total</div>
@@ -617,6 +615,51 @@
       </div>
 
       <div class="sim-status ok" id="simStatus">Comfortable fit &mdash; the charter has room to spare.</div>
+    </div>
+  </div>
+</section>
+<!-- ============ COST TICKET ============ -->
+<section class="cost-section" id="cost">
+  <div class="wrap">
+    <div class="eyebrow">Executive Summary</div>
+    <h2 style="font-size:2.6rem; max-width:18ch;">What today's mix actually costs.</h2>
+    <p style="margin-top:14px; opacity:0.85;">This summary updates live with the simulator above. Charter pricing is hourly with a per-booking minimum, so it's effectively a fixed cost for a wide range of charter headcounts &mdash; the lever that actually moves the number is bus size, quantity, and hours. RTD/Flatiron Flyer cost scales directly with ridership at $3 per leg.</p>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <span class="tt">Daily Charter Summary</span>
+        <span class="ts">JAN 26&ndash;29 &middot; 4 SERVICE DAYS</span>
+      </div>
+      <div class="sum-grid">
+        <div class="sum-card">
+          <div class="label">Mode Split (Cars / RTD / Charter)</div>
+          <div class="value" id="sumSplit" style="font-size:1.5rem;">100 / 200 / 100</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Avg. Charter Capacity Used</div>
+          <div class="value" id="sumPct">50%</div>
+        </div>
+        <div class="sum-card highlight">
+          <div class="label">Charter Cost / Day</div>
+          <div class="value" id="sumCharterCost">$1,575</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">RTD Fare Cost / Day</div>
+          <div class="value" id="sumRtdCost">$1,200 <small>round trip</small></div>
+        </div>
+        <div class="sum-card highlight">
+          <div class="label">Total Daily Transport Cost</div>
+          <div class="value" id="sumTotalCost">$2,775</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">4-Day Total</div>
+          <div class="value" id="sumTotal4">$11,100</div>
+        </div>
+      </div>
+      <div class="sum-recommendation" id="sumRecommendation">
+        Recommendation will appear here based on the simulator settings above.
+      </div>
+      <div class="ticket-note">Charter pricing is hourly with a per-booking minimum (e.g. 5 hours for the 27/40/50-pax buses, 4 hours for the 14-pax van) &mdash; so the charter cost above is fixed for a wide range of headcounts and only changes when you adjust bus size, quantity, or hours in the simulator. RTD/Flatiron Flyer cost scales directly with ridership at $3/leg ($6 round trip per person). Adjust the sliders above to see how shifting riders between modes changes this summary.</div>
     </div>
   </div>
 </section>
@@ -629,28 +672,24 @@
     <h2 style="font-size:2.4rem; margin-bottom:18px;">Three close stops, one long hop.</h2>
     <p style="margin-bottom:28px; opacity:0.85;">The hotel, the church, and the regional bus stop are close enough to walk between in a pinch. That's what makes the shuttle loop efficient &mdash; one short local hop, then everyone funnels onto the same Boulder-bound route.</p>
     <ul class="leg-list">
-      <li><span class="leg-time">0.7 mi</span><div class="leg-label"><b>Hotel &harr; Ascent Church</b><span>2-minute drive, walkable in good weather</span></div></li>
-      <li><span class="leg-time">0.8 mi</span><div class="leg-label"><b>Ascent Church &harr; US36 &amp; McCaslin</b><span>Directly across McCaslin Blvd from the church</span></div></li>
+      <li><span class="leg-time">0.4 mi</span><div class="leg-label"><b>Hotel &harr; Ascent Church</b><span>2-minute drive, walkable in good weather</span></div></li>
+      <li><span class="leg-time">0.7 mi</span><div class="leg-label"><b>Ascent Church &harr; US36 &amp; McCaslin</b><span>Directly across McCaslin Blvd from the church</span></div></li>
+      <li><span class="leg-time">0.6 mi</span><div class="leg-label"><b>US36 &amp; McCaslin &harr; Hotel</b><span>Closes the loop &mdash; the third leg of the triangle</span></div></li>
       <li><span class="leg-time">~18 min</span><div class="leg-label"><b>McCaslin &harr; Downtown Boulder</b><span>By charter, US36 corridor, ~7&ndash;8 miles</span></div></li>
       <li><span class="leg-time">~30 min</span><div class="leg-label"><b>McCaslin &harr; Boulder via Flatiron Flyer</b><span>RTD regional route, every 10&ndash;15 min at peak</span></div></li>
     </ul>
   </div>
 </section>
 
-<!-- ============ LIVE MAP ============ -->
-<section class="livemap-section" id="livemap">
+<!-- ============ AERIAL VIEW ============ -->
+<section class="livemap-section" id="aerial">
   <div class="wrap">
     <div class="eyebrow on-dark">On the Ground</div>
-    <h2 style="font-size:2.6rem; max-width:18ch;">All three routes, one real map.</h2>
-    <p style="margin-top:14px;">Toggle each option to see how it actually traces across Louisville and Boulder. The free RTD/Flatiron Flyer route follows the US36 corridor; the charter runs a more direct line into Pearl Street; personal cars make the short hop to the McCaslin park-n-ride.</p>
+    <h2 style="font-size:2.6rem; max-width:18ch;">The triangle, from above.</h2>
+    <p style="margin-top:14px;">A simplified aerial view: Louisville in the foreground, Boulder in the distance. The red triangle is the hotel shuttle's hotel/Ascent/RTD loop; the two amber lines trace the Boulder-bound routes from Ascent Church and from the US36 &amp; McCaslin RTD stop.</p>
 
-    <div class="livemap-card">
-      <div id="liveMap"></div>
-      <div class="livemap-controls">
-        <label><span class="swatch" style="background:#C1453B;"></span><input type="checkbox" id="toggleCars" checked> Personal Cars &rarr; McCaslin P&amp;R</label>
-        <label><span class="swatch" style="background:#8FBF7F;"></span><input type="checkbox" id="toggleRtd" checked> Flatiron Flyer &rarr; Boulder (US36)</label>
-        <label><span class="swatch" style="background:#E8A23D;"></span><input type="checkbox" id="toggleCharter" checked> Charter &rarr; Pearl St, Boulder</label>
-      </div>
+    <div class="livemap-card" style="padding:18px;">
+      <img src="aerial-map.png" alt="Map of Boulder and Louisville with the hotel/Ascent/RTD triangle in red and routes to Boulder in amber, showing the Sundance Film Festival and Windrider locations" style="display:block; width:100%; height:auto; border-radius:6px;">
     </div>
   </div>
 </section>
@@ -711,53 +750,6 @@
   </div>
 </section>
 
-<!-- ============ COST TICKET ============ -->
-<section class="cost-section" id="cost">
-  <div class="wrap">
-    <div class="eyebrow">The Daily Cost</div>
-    <h2 style="font-size:2.6rem; max-width:18ch;">Charter rates are hourly, with a minimum.</h2>
-    <p style="margin-top:14px; opacity:0.85;">Each charter price is an hourly rate with a minimum number of hours billed regardless of usage &mdash; e.g. the 27-passenger bus is $275/hr with a 5-hour minimum, so a single booking costs at least $1,375 even if it's only on the road for three of those hours. With the hotel shuttle now covering the hotel/Ascent/RTD triangle from 11:30&ndash;5:30 at no extra cost, the charter fleet only needs to cover the Boulder run itself: an evening bus and a late-night return loop.</p>
-
-    <div class="ticket">
-      <div class="ticket-head">
-        <span class="tt">Daily Charter Summary</span>
-        <span class="ts">JAN 26&ndash;29 &middot; 4 SERVICE DAYS</span>
-      </div>
-      <table>
-        <tr>
-          <th>Vehicle</th><th>Window</th><th>Role</th><th class="num">Rate</th><th class="num">Daily (incl. min)</th>
-        </tr>
-        <tr>
-          <td>Hotel Shuttle Van</td><td>7:00&ndash;8:30am, 11:30am&ndash;5:30pm</td><td>Hotel/Ascent/RTD triangle</td><td class="num">&mdash;</td><td class="num">Included</td>
-        </tr>
-        <tr>
-          <td>Charter Bus &middot; 50-pax</td><td>5:00&ndash;10:00pm (5hr min)</td><td>Evening Boulder run</td><td class="num">$315/hr</td><td class="num">$1,575</td>
-        </tr>
-        <tr>
-          <td>Charter Bus &middot; 27-pax</td><td>9:00pm&ndash;2:00am (5hr min)</td><td>Late-night return loop</td><td class="num">$275/hr</td><td class="num">$1,375</td>
-        </tr>
-        <tr>
-          <td>Rideshare float</td><td>After 2:00am</td><td>Midnight-screening stragglers</td><td class="num">&mdash;</td><td class="num">$200&ndash;300</td>
-        </tr>
-      </table>
-      <div class="ticket-foot">
-        <div>
-          <div class="label">Per-day charter total</div>
-          <div class="amount">$2,950</div>
-        </div>
-        <div>
-          <div class="label">4-day total</div>
-          <div class="amount">$11,800</div>
-        </div>
-        <div>
-          <div class="label">vs. 400 &times; RTD round-trip ($6/day)</div>
-          <div class="amount">$2,400/day</div>
-        </div>
-      </div>
-      <div class="ticket-note">Every charter line item is billed at its 5-hour (or 4-hour, for the 14-pax van) minimum even if actual road time is shorter &mdash; so the real lever for cost control is whether a bus is booked at all, not how long each individual trip takes. Use the simulator below to test how shrinking the charter group (more cars + more free RTD riders) changes which bus sizes and quantities are actually needed.</div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ STUDENT GUIDE ============ -->
 <section class="guide-section" id="guide">
@@ -841,75 +833,6 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script>
-(function(){
-  const map = L.map('liveMap', {scrollWheelZoom:false}).setView([39.998, -105.205], 11);
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(map);
-
-  const POINTS = {
-    hotel:   [39.9589808, -105.1636109],
-    church:  [39.962236,  -105.1608354],
-    mccaslin:[39.9584077, -105.1685471],
-    boulder: [40.0192048, -105.2774254]
-  };
-
-  function marker(latlng, label, color){
-    return L.circleMarker(latlng, {
-      radius:7, color:color, weight:2, fillColor:color, fillOpacity:0.9
-    }).addTo(map).bindPopup(label);
-  }
-
-  marker(POINTS.hotel,   'Hotel Block (Courtyard / Residence Inn)', '#C1453B');
-  marker(POINTS.church,  'Ascent Community Church', '#C1453B');
-  marker(POINTS.mccaslin,'US36 &amp; McCaslin Park-n-Ride / RTD', '#8FBF7F');
-  marker(POINTS.boulder, 'Downtown Boulder / Pearl St venues', '#E8A23D');
-
-  // Personal cars: hotel/church area -> McCaslin park-n-ride (short hop)
-  const carsLine = L.polyline([
-    POINTS.hotel,
-    [39.9592, -105.1665],
-    POINTS.mccaslin
-  ], {color:'#C1453B', weight:4, opacity:0.85}).addTo(map)
-    .bindPopup('Personal cars: park at the free US36 &amp; McCaslin RTD lot, then transfer.');
-
-  // RTD Flatiron Flyer: McCaslin -> Boulder via US36 corridor
-  const rtdLine = L.polyline([
-    POINTS.mccaslin,
-    [39.9700, -105.2050],
-    [39.9988, -105.2425],
-    [40.0050, -105.2550],
-    POINTS.boulder
-  ], {color:'#8FBF7F', weight:4, opacity:0.85}).addTo(map)
-    .bindPopup('RTD Flatiron Flyer along US36 &mdash; free festival pass.');
-
-  // Charter: hotel/church -> Boulder direct
-  const charterLine = L.polyline([
-    POINTS.church,
-    POINTS.hotel,
-    [39.9650, -105.1850],
-    [39.9850, -105.2200],
-    [40.0050, -105.2550],
-    POINTS.boulder
-  ], {color:'#E8A23D', weight:4, dashArray:'8 6', opacity:0.85}).addTo(map)
-    .bindPopup('Blue River Events charter &mdash; direct evening/late-night run.');
-
-  document.getElementById('toggleCars').addEventListener('change', e=>{
-    e.target.checked ? carsLine.addTo(map) : map.removeLayer(carsLine);
-  });
-  document.getElementById('toggleRtd').addEventListener('change', e=>{
-    e.target.checked ? rtdLine.addTo(map) : map.removeLayer(rtdLine);
-  });
-  document.getElementById('toggleCharter').addEventListener('change', e=>{
-    e.target.checked ? charterLine.addTo(map) : map.removeLayer(charterLine);
-  });
-})();
-</script>
 <script>
 (function(){
   const BUS = {
@@ -929,7 +852,7 @@
   const busSize = document.getElementById('busSize');
   const busQty = document.getElementById('busQty');
   const busHours = document.getElementById('busHours');
-  const tripsPerDay = document.getElementById('tripsPerDay');
+  const tripMinutes = document.getElementById('tripMinutes');
 
   const roCapacity = document.getElementById('roCapacity');
   const roTrips = document.getElementById('roTrips');
@@ -944,6 +867,13 @@
   const roRtdCost = document.getElementById('roRtdCost');
   const roTotal4 = document.getElementById('roTotal4');
   const simStatus = document.getElementById('simStatus');
+  const sumSplit = document.getElementById('sumSplit');
+  const sumCharterCost = document.getElementById('sumCharterCost');
+  const sumRtdCost = document.getElementById('sumRtdCost');
+  const sumTotalCost = document.getElementById('sumTotalCost');
+  const sumTotal4 = document.getElementById('sumTotal4');
+  const sumPct = document.getElementById('sumPct');
+  const sumRecommendation = document.getElementById('sumRecommendation');
 
   function fmt(n){ return '$' + n.toLocaleString('en-US', {maximumFractionDigits:2}); }
 
@@ -981,17 +911,20 @@
     if(qty < 1) qty = 1;
     busQty.value = qty;
 
-    let trips = parseInt(tripsPerDay.value, 10) || 1;
-    if(trips < 1) trips = 1;
-    tripsPerDay.value = trips;
-
     const spec = BUS[size];
     let hours = parseInt(busHours.value, 10) || spec.min;
     if(hours < spec.min) hours = spec.min;
     busHours.value = hours;
     busHours.min = spec.min;
 
-    const totalTrips = qty * trips;
+    let minutes = parseInt(tripMinutes.value, 10) || 30;
+    if(minutes < 5) minutes = 5;
+    tripMinutes.value = minutes;
+
+    const oneWayTrips = Math.floor((hours * 60) / minutes);
+    const trips = oneWayTrips / 2; // round trips/bus/day
+
+    const totalTrips = qty * oneWayTrips;
     const dailyCost = spec.rate * hours * qty;
     const totalSeatLegs = charter * 2; // each rider needs an outbound seat AND a return seat
     const avgLoad = charter > 0 ? (totalSeatLegs / totalTrips) : 0;
@@ -1008,8 +941,8 @@
     roPerRider.textContent = charter > 0 ? fmt(perRider) : '\u2014';
     roTotal4.textContent = fmt(dailyCost * 4);
 
-    const rtdWouldHaveCost = rtd * 3;
-    roRtdCost.innerHTML = '$0 <small>was ~' + fmt(rtdWouldHaveCost) + '</small>';
+    const rtdDailyCost = rtd * 2 * 3; // $3/trip, round trip per person
+    roRtdCost.innerHTML = fmt(rtdDailyCost) + ' <small>round trip</small>';
 
     if(diff >= 0){
       roFit.innerHTML = '+' + (Math.round(diff*10)/10) + ' <small>spare/trip</small>';
@@ -1023,7 +956,7 @@
 
     if(charter === 0){
       simStatus.className = 'sim-status ok';
-      simStatus.textContent = 'No charter needed at all \u2014 cars and the free RTD pass cover everyone. The fleet below is idle.';
+      simStatus.textContent = 'No charter needed at all \u2014 cars and RTD cover everyone. The fleet below is idle.';
     } else if(diff < 0){
       const neededSize = Math.ceil(avgLoad);
       simStatus.className = 'sim-status warn';
@@ -1035,6 +968,29 @@
       simStatus.className = 'sim-status ok';
       simStatus.textContent = 'Comfortable fit \u2014 averaging ' + (Math.round(avgLoad*10)/10) + ' of ' + size + ' seats across ' + totalTrips + ' trips spread over the afternoon and evening.';
     }
+
+    // ---- Executive summary ----
+    sumSplit.textContent = cars + ' / ' + rtd + ' / ' + charter;
+    sumCharterCost.textContent = charter > 0 ? fmt(dailyCost) : '$0';
+    sumRtdCost.innerHTML = fmt(rtdDailyCost) + ' <small>round trip</small>';
+    const totalDaily = (charter > 0 ? dailyCost : 0) + rtdDailyCost;
+    sumTotalCost.textContent = fmt(totalDaily);
+    sumTotal4.textContent = fmt(totalDaily * 4);
+    sumPct.textContent = charter > 0 ? (Math.round(pct*10)/10) + '%' : '\u2014';
+
+    // Recommendation logic
+    let rec = '';
+    if(charter === 0){
+      rec = 'No charter is needed with this split \u2014 cars and RTD alone cover all ' + total + ' attendees. Daily transport cost is just the RTD fares: ' + fmt(rtdDailyCost) + '/day (' + fmt(rtdDailyCost*4) + ' over 4 days).';
+    } else if(pct > 100){
+      rec = 'The charter is over capacity at this split (' + (Math.round(pct*10)/10) + '% average load). Either increase bus size/quantity, add round trips, or shift some charter riders to RTD \u2014 each rider moved to RTD adds $6/day in fares but costs nothing extra in charter fees, since the charter price is fixed at this booking level.';
+    } else if(pct < 40){
+      const headroom = Math.floor((size * totalTrips - charter*2) / 2);
+      rec = 'The charter is running at only ' + (Math.round(pct*10)/10) + '% average capacity \u2014 there is room to absorb roughly ' + headroom + ' more riders at no extra charter cost. Conversely, if the charter group shrank further, this booking (' + fmt(dailyCost) + '/day) would still cost the same until you drop below the next bus-size or hour threshold. Worth testing whether a smaller bus or fewer hours covers the same group for less.';
+    } else {
+      rec = 'This is a reasonably efficient split \u2014 the charter (' + fmt(dailyCost) + '/day) is running at ' + (Math.round(pct*10)/10) + '% average capacity. Since the charter price is fixed at this booking level, encouraging a few more riders toward the free-flowing Flatiron Flyer (at $6/day round trip each) will not reduce charter cost further without dropping below a capacity threshold \u2014 but it does reduce crowding on charter runs and demand on the McCaslin parking lot.';
+    }
+    sumRecommendation.textContent = rec;
   }
 
   busSize.addEventListener('change', ()=>{
@@ -1042,7 +998,7 @@
     recalc();
   });
 
-  [totalEl, handle1, handle2, busSize, busQty, busHours, tripsPerDay].forEach(el=>{
+  [totalEl, handle1, handle2, busSize, busQty, busHours, tripMinutes].forEach(el=>{
     el.addEventListener('input', recalc);
     el.addEventListener('change', recalc);
   });
