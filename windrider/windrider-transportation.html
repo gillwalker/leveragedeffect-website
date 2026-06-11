@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windrider Summit · Getting There</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{
+    --ink:#162232;
+    --ink-soft:#243349;
+    --paper:#F6F1E6;
+    --paper-dim:#EAE2D2;
+    --amber:#E8A23D;
+    --rust:#C1453B;
+    --slate:#7E97AC;
+    --line: rgba(246,241,230,0.14);
+    --line-dark: rgba(22,34,50,0.12);
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Spectral', Georgia, serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- shared ---------- */
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  section{padding:84px 0;}
+  h1,h2,h3{font-family:var(--display); letter-spacing:0.02em; line-height:1.05;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--rust); margin-bottom:14px;
+  }
+  .eyebrow.on-dark{color:var(--amber);}
+  p{max-width:62ch;}
+  a{color:inherit;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:90px 0 70px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:6px solid var(--amber);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 18% 20%, rgba(232,162,61,0.10), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(126,151,172,0.14), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-top{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap; position:relative;}
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 6.2rem);
+    text-transform:uppercase;
+    margin:6px 0 18px;
+  }
+  .hero h1 span{color:var(--amber);}
+  .hero .lede{
+    font-size:1.15rem; color:var(--paper-dim); max-width:54ch;
+    font-style:italic;
+  }
+  .hero-meta{
+    font-family:var(--mono); font-size:0.78rem; color:var(--slate);
+    text-align:right; line-height:1.9; white-space:nowrap;
+  }
+
+  /* split-flap departure board */
+  .board{
+    margin-top:54px;
+    background:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px 24px;
+    position:relative;
+  }
+  .board-title{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:16px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .board-title .dot{
+    width:8px; height:8px; border-radius:50%; background:var(--rust);
+    display:inline-block; margin-right:8px;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+  .board-row{
+    display:grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+    gap:14px;
+    padding:11px 0;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:0.92rem;
+    align-items:center;
+  }
+  .board-row:first-child{border-top:none;}
+  .board-row.head{
+    color:var(--slate); font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;
+    padding-bottom:14px;
+  }
+  .board-row .flap{
+    background:#0E1824; border-radius:3px; padding:6px 10px;
+    color:var(--paper); display:inline-block; min-width:64px; text-align:center;
+    border:1px solid var(--line);
+  }
+  .board-row .status{color:var(--amber);}
+  .board-row .status.free{color:#8FBF7F;}
+  @media (max-width:640px){
+    .board-row{grid-template-columns:1fr 1fr; row-gap:6px;}
+    .board-row.head{display:none;}
+    .board-row span:nth-child(3), .board-row span:nth-child(4){grid-column:span 1;}
+  }
+
+  /* ---------- THE TRIANGLE / MAP ---------- */
+  .triangle-section{background:var(--paper);}
+  .triangle-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:48px; align-items:center;
+  }
+  @media (max-width:860px){.triangle-grid{grid-template-columns:1fr;}}
+  .map-card{
+    background:var(--ink); border-radius:10px; padding:18px;
+    border:1px solid var(--line-dark);
+  }
+  .map-card svg{display:block; width:100%; height:auto;}
+  .map-caption{
+    font-family:var(--mono); font-size:0.7rem; color:var(--slate);
+    margin-top:10px; letter-spacing:0.05em;
+  }
+  .leg-list{list-style:none;}
+  .leg-list li{
+    display:flex; gap:16px; padding:14px 0; border-top:1px solid var(--line-dark);
+    align-items:baseline;
+  }
+  .leg-list li:first-child{border-top:none;}
+  .leg-list .leg-time{
+    font-family:var(--mono); font-weight:600; font-size:0.95rem; color:var(--rust);
+    min-width:64px;
+  }
+  .leg-list .leg-label b{display:block; font-size:1.02rem; margin-bottom:2px;}
+  .leg-list .leg-label span{font-size:0.92rem; color:var(--ink-soft); opacity:0.75;}
+
+  /* ---------- THE DAILY RHYTHM (signature timeline) ---------- */
+  .rhythm-section{background:var(--ink); color:var(--paper);}
+  .rhythm-section h2{color:var(--paper);}
+  .rhythm-section p{color:var(--paper-dim);}
+  .timeline{
+    margin-top:56px;
+    position:relative;
+    padding-left:0;
+  }
+  .timeline-track{
+    position:relative;
+    height:64px;
+    border-radius:32px;
+    background:linear-gradient(90deg, #1E2D40 0%, #1E2D40 100%);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .tl-seg{
+    position:absolute; top:0; bottom:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink); font-weight:600;
+    border-right:1px solid rgba(22,34,50,0.25);
+  }
+  .tl-axis{
+    display:flex; justify-content:space-between; margin-top:10px;
+    font-family:var(--mono); font-size:0.68rem; color:var(--slate); letter-spacing:0.05em;
+  }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:18px 28px; margin-top:34px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--paper-dim);
+  }
+  .legend span{display:inline-flex; align-items:center; gap:8px;}
+  .legend i{width:14px; height:14px; border-radius:3px; display:inline-block;}
+
+  .wave-cards{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:16px;
+    margin-top:40px;
+  }
+  .wave-card{
+    border:1px solid var(--line); border-radius:8px; padding:18px;
+    background:var(--ink-soft);
+  }
+  .wave-card .wnum{font-family:var(--mono); font-size:0.7rem; color:var(--amber); letter-spacing:0.15em;}
+  .wave-card h3{font-size:1.6rem; margin:6px 0 4px; color:var(--paper);}
+  .wave-card .wtime{font-family:var(--mono); font-size:0.85rem; color:var(--slate); margin-bottom:8px;}
+  .wave-card p{font-size:0.92rem; color:var(--paper-dim); max-width:none;}
+
+  /* ---------- COST TICKET ---------- */
+  .cost-section{background:var(--paper);}
+  .ticket{
+    background:#fff;
+    border:1px solid var(--line-dark);
+    border-radius:10px;
+    box-shadow:0 18px 50px -28px rgba(22,34,50,0.45);
+    padding:0;
+    overflow:hidden;
+    margin-top:48px;
+  }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 28px; background:var(--ink); color:var(--paper);
+  }
+  .ticket-head .tt{font-family:var(--display); font-size:1.6rem; letter-spacing:0.04em;}
+  .ticket-head .ts{font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.15em;}
+  table{width:100%; border-collapse:collapse;}
+  th,td{
+    text-align:left; padding:14px 28px; font-size:0.95rem;
+    border-bottom:1px solid var(--line-dark);
+  }
+  th{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+    color:var(--slate); font-weight:600; background:var(--paper-dim);
+  }
+  td.num, th.num{font-family:var(--mono); text-align:right; white-space:nowrap;}
+  tr:last-child td{border-bottom:none;}
+  .ticket-foot{
+    padding:20px 28px; background:var(--paper-dim);
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;
+    border-top:2px dashed var(--line-dark);
+  }
+  .ticket-foot .label{font-family:var(--mono); font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-soft);}
+  .ticket-foot .amount{font-family:var(--display); font-size:2.2rem; color:var(--rust);}
+  .ticket-note{font-family:var(--mono); font-size:0.78rem; color:var(--ink-soft); opacity:0.8; padding:14px 28px 22px;}
+
+  /* ---------- SIMULATOR ---------- */
+  .sim-section{background:var(--paper);}
+  .sim-panel{
+    margin-top:48px; background:var(--ink); color:var(--paper);
+    border-radius:10px; padding:32px; border:1px solid var(--line-dark);
+  }
+  .sim-total{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px;
+  }
+  .sim-total label{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--slate);}
+  .sim-total input[type="number"]{
+    font-family:var(--mono); font-size:1.6rem; width:110px; background:var(--ink-soft);
+    border:1px solid var(--line); border-radius:6px; color:var(--paper); padding:8px 12px;
+  }
+  .sim-row{margin-bottom:28px;}
+  .sim-row-head{
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;
+    margin-bottom:10px;
+  }
+  .sim-row-head .name{font-family:var(--display); font-size:1.4rem; letter-spacing:0.03em;}
+  .sim-row-head .name small{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--slate); display:block; margin-top:2px;
+  }
+  .sim-row-head .val{font-family:var(--mono); font-size:1.5rem; color:var(--amber);}
+  .sim-row-head .val span{font-size:0.85rem; color:var(--slate);}
+  input[type="range"]{
+    -webkit-appearance:none; width:100%; height:6px; border-radius:3px;
+    background:var(--ink-soft); outline:none; border:1px solid var(--line);
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
+    background:var(--amber); cursor:pointer; border:3px solid var(--ink);
+    box-shadow:0 0 0 1px var(--amber);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:20px; height:20px; border-radius:50%;
+    background:var(--amber); cursor:pointer; border:3px solid var(--ink);
+    box-shadow:0 0 0 1px var(--amber);
+  }
+  #carsRange::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--rust); background:var(--rust);}
+  #carsRange::-moz-range-thumb{box-shadow:0 0 0 1px var(--rust); background:var(--rust);}
+  #rtdRange::-webkit-slider-thumb{box-shadow:0 0 0 1px #8FBF7F; background:#8FBF7F;}
+  #rtdRange::-moz-range-thumb{box-shadow:0 0 0 1px #8FBF7F; background:#8FBF7F;}
+
+  .sim-row p.hint{font-size:0.86rem; color:var(--slate); margin-top:8px; max-width:60ch;}
+
+  /* dual-handle combined slider */
+  .combo-slider{
+    position:relative; height:46px; margin-top:8px;
+  }
+  .combo-track{
+    position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+    height:10px; border-radius:5px; border:1px solid var(--line);
+    background:linear-gradient(to right,
+      var(--rust) 0%, var(--rust) var(--p1),
+      #8FBF7F var(--p1), #8FBF7F var(--p2),
+      var(--amber) var(--p2), var(--amber) 100%);
+  }
+  .combo-slider input[type="range"]{
+    position:absolute; left:0; right:0; top:0;
+    width:100%; height:46px; margin:0;
+    background:transparent; border:none;
+    -webkit-appearance:none; pointer-events:none;
+  }
+  .combo-slider input[type="range"]::-webkit-slider-runnable-track{
+    background:transparent; height:46px;
+  }
+  .combo-slider input[type="range"]::-moz-range-track{
+    background:transparent; height:46px; border:none;
+  }
+  .combo-slider input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; pointer-events:auto;
+    width:22px; height:22px; border-radius:50%; margin-top:12px;
+    background:var(--paper); border:3px solid var(--ink);
+    box-shadow:0 0 0 2px var(--paper), 0 2px 6px rgba(0,0,0,0.4);
+    cursor:grab;
+  }
+  .combo-slider input[type="range"]::-moz-range-thumb{
+    pointer-events:auto;
+    width:22px; height:22px; border-radius:50%; border:3px solid var(--ink);
+    background:var(--paper);
+    box-shadow:0 0 0 2px var(--paper), 0 2px 6px rgba(0,0,0,0.4);
+    cursor:grab;
+  }
+  .combo-labels{
+    display:flex; justify-content:space-between; margin-top:30px;
+    font-family:var(--mono); font-size:0.78rem;
+  }
+  .combo-labels > div{flex:1; text-align:left;}
+  .combo-labels > div:nth-child(2){text-align:center;}
+  .combo-labels > div:last-child{text-align:right;}
+  .combo-labels b{
+    display:block; font-family:var(--display); font-size:1.6rem; letter-spacing:0.03em; margin-top:4px;
+  }
+  .combo-labels .lbl-cars b{color:var(--rust);}
+  .combo-labels .lbl-rtd b{color:#8FBF7F;}
+  .combo-labels .lbl-charter b{color:var(--amber);}
+  .combo-labels span.unit{color:var(--slate); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;}
+  .sim-divider{height:1px; background:var(--line); margin:30px 0;}
+
+  .sim-bus-controls{
+    display:flex; gap:24px; flex-wrap:wrap; align-items:flex-end; margin-top:18px;
+  }
+  .sim-field label{
+    display:block; font-family:var(--mono); font-size:0.68rem; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--slate); margin-bottom:8px;
+  }
+  .sim-field select, .sim-field input[type="number"]{
+    font-family:var(--mono); font-size:1.05rem; background:var(--ink-soft);
+    border:1px solid var(--line); border-radius:6px; color:var(--paper); padding:9px 12px;
+    min-width:160px;
+  }
+  .sim-field input[type="number"]{min-width:80px; width:80px;}
+
+  .sim-readout{
+    margin-top:30px; display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:16px;
+  }
+  .ro-card{
+    border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--ink-soft);
+  }
+  .ro-card .ro-label{font-family:var(--mono); font-size:0.66rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--slate);}
+  .ro-card .ro-value{font-family:var(--display); font-size:2rem; margin-top:6px; color:var(--paper);}
+  .ro-card .ro-value small{font-family:var(--mono); font-size:0.8rem; color:var(--slate); margin-left:4px;}
+  .ro-card.warn .ro-value{color:var(--rust);}
+  .ro-card.ok .ro-value{color:#8FBF7F;}
+  .ro-card.highlight{border-color:var(--amber);}
+  .ro-card.highlight .ro-value{color:var(--amber);}
+  .ro-card.over .ro-value{color:var(--amber);}
+
+  .sim-status{
+    margin-top:18px; font-family:var(--mono); font-size:0.85rem; padding:14px 16px;
+    border-radius:6px; border:1px solid var(--line);
+  }
+  .sim-status.warn{color:var(--rust); border-color:var(--rust); background:rgba(193,69,59,0.08);}
+  .sim-status.ok{color:#8FBF7F; border-color:#8FBF7F; background:rgba(143,191,127,0.08);}
+  .sim-status.over{color:var(--amber); border-color:var(--amber); background:rgba(232,162,61,0.08);}
+
+  /* ---------- LIVE MAP ---------- */
+  .livemap-section{background:var(--ink); color:var(--paper);}
+  .livemap-section h2{color:var(--paper);}
+  .livemap-section p{color:var(--paper-dim);}
+  .livemap-card{
+    margin-top:40px; border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    background:var(--ink-soft);
+  }
+  #liveMap{ height:480px; width:100%; background:#1E2D40; }
+  .livemap-controls{
+    display:flex; flex-wrap:wrap; gap:10px 24px; padding:18px 22px;
+    border-top:1px solid var(--line); font-family:var(--mono); font-size:0.82rem;
+  }
+  .livemap-controls label{
+    display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;
+  }
+  .livemap-controls input[type="checkbox"]{
+    width:16px; height:16px; accent-color:var(--amber); cursor:pointer;
+  }
+  .livemap-controls .swatch{
+    width:22px; height:4px; border-radius:2px; display:inline-block;
+  }
+  .leaflet-popup-content-wrapper{
+    background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:0.8rem;
+    border-radius:6px;
+  }
+  .leaflet-popup-tip{background:var(--ink);}
+
+  /* ---------- STUDENT GUIDE ---------- */
+  .guide-section{background:var(--ink); color:var(--paper);}
+  .guide-section h2{color:var(--paper);}
+  .guide-section p{color:var(--paper-dim);}
+  .steps{
+    margin-top:48px; display:grid; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .step{
+    display:grid; grid-template-columns:90px 1fr; gap:24px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .step .sn{
+    font-family:var(--display); font-size:2.6rem; color:var(--amber); line-height:1;
+  }
+  .step h3{font-size:1.3rem; margin-bottom:6px; color:var(--paper);}
+  .step p{color:var(--paper-dim); font-size:0.98rem; max-width:60ch;}
+  .step .tag{
+    display:inline-block; font-family:var(--mono); font-size:0.66rem;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--rust);
+    border:1px solid var(--rust); border-radius:999px; padding:3px 10px; margin-top:10px;
+  }
+  .step .tag.free{color:#8FBF7F; border-color:#8FBF7F;}
+
+  /* ---------- OPEN ITEMS / FOOTER ---------- */
+  .open-section{background:var(--paper);}
+  .open-list{margin-top:36px; list-style:none; display:grid; gap:14px;}
+  .open-list li{
+    display:flex; gap:14px; align-items:flex-start;
+    border:1px solid var(--line-dark); border-radius:8px; padding:16px 18px;
+    background:#fff;
+  }
+  .open-list .ck{
+    width:20px; height:20px; flex:none; border:2px solid var(--rust); border-radius:4px; margin-top:3px;
+  }
+  .open-list span{font-size:0.96rem;}
+  footer{
+    background:var(--ink); color:var(--slate); padding:38px 0;
+    font-family:var(--mono); font-size:0.74rem; letter-spacing:0.06em;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  footer b{color:var(--paper);}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow on-dark">Windrider Institute &middot; 2027 Summit, Boulder/Louisville CO</div>
+        <h1>Getting <span>400 People</span><br>To the Movies<br>and Back</h1>
+        <p class="lede">A working transportation plan for Jan 26&ndash;29 &mdash; the days the Summit overlaps with Sundance. Built around the morning class at Ascent, the afternoon film rush, and the late-night return.</p>
+      </div>
+      <div class="hero-meta">
+        PREPARED BY<br><b style="color:var(--paper)">LEVERAGED EFFECT LLC</b><br>
+        FOR WINDRIDER INSTITUTE<br>
+        ROUTE&nbsp;&nbsp;LOUISVILLE &harr; BOULDER<br>
+        DIST&nbsp;&nbsp;&nbsp;&nbsp;~7&ndash;8 MI / ~16&ndash;20 MIN
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="board-title"><span><span class="dot"></span>NEXT DEPARTURES &mdash; SAMPLE DAY</span><span>ASCENT&nbsp;&rarr;&nbsp;BOULDER</span></div>
+      <div class="board-row head">
+        <span>Service</span><span>Departs</span><span>From</span><span>Status</span>
+      </div>
+      <div class="board-row">
+        <span>Hotel Shuttle Van</span><span class="flap">07:00</span><span>Hotel &harr; Ascent</span><span class="status free">Included</span>
+      </div>
+      <div class="board-row">
+        <span>Hotel Shuttle Van</span><span class="flap">08:30</span><span>&mdash; break &mdash;</span><span class="status free">Off until 11:30</span>
+      </div>
+      <div class="board-row">
+        <span>Hotel Shuttle Van</span><span class="flap">11:30</span><span>Triangle Loop</span><span class="status free">Hotel/Ascent/RTD</span>
+      </div>
+      <div class="board-row">
+        <span>RTD Flatiron Flyer</span><span class="flap">12:18</span><span>US36 &amp; McCaslin</span><span class="status">~$3 / leg</span>
+      </div>
+      <div class="board-row">
+        <span>Charter 50&#8209;pax &middot; Evening</span><span class="flap">17:00</span><span>Pearl St, Boulder</span><span class="status">Chartered</span>
+      </div>
+      <div class="board-row">
+        <span>HOP Bus (Boulder)</span><span class="flap">21:15</span><span>Downtown Boulder Stn</span><span class="status free">Free in fest.</span>
+      </div>
+      <div class="board-row">
+        <span>Charter 27&#8209;pax &middot; Late Loop</span><span class="flap">23:05</span><span>Pearl St, Boulder</span><span class="status">Chartered</span>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ============ SIMULATOR ============ -->
+<section class="sim-section" id="simulator">
+  <div class="wrap">
+    <div class="eyebrow">Run the Numbers</div>
+    <h2 style="font-size:2.6rem; max-width:18ch;">Split 400 people, three ways.</h2>
+    <p style="margin-top:14px; opacity:0.85;">Move the sliders to model how attendees split between personal vehicles, the free RTD bus pass, and a Blue River Events charter. Whatever's left after cars and RTD rides the charter &mdash; pick a bus size and quantity to see if it fits, and what it costs.</p>
+
+    <div class="sim-panel">
+      <div class="sim-total">
+        <label for="totalPeople">Total Attendees</label>
+        <input type="number" id="totalPeople" value="400" min="1" max="1000" step="1">
+        <p class="hint" style="margin:0;">Change this if the headcount shifts &mdash; everything below recalculates.</p>
+      </div>
+
+      <div class="sim-row">
+        <div class="sim-row-head">
+          <div class="name">Mode Split<small>Drag either dot &mdash; the three groups always add up to the total</small></div>
+        </div>
+        <div class="combo-slider" id="comboSlider">
+          <div class="combo-track" id="comboTrack"></div>
+          <input type="range" id="handle1" min="0" max="400" value="100" step="5">
+          <input type="range" id="handle2" min="0" max="400" value="300" step="5">
+        </div>
+        <div class="combo-labels">
+          <div class="lbl-cars">
+            <span class="unit">Personal Cars</span>
+            <b id="carsVal">100</b>
+            <span class="unit">park at McCaslin</span>
+          </div>
+          <div class="lbl-rtd">
+            <span class="unit">Flatiron Flyer</span>
+            <b id="rtdVal">200</b>
+            <span class="unit">free pass</span>
+          </div>
+          <div class="lbl-charter">
+            <span class="unit">Blue River Events</span>
+            <b id="charterVal">100</b>
+            <span class="unit">chartered</span>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:22px;">Left dot sets the cars/RTD boundary, right dot sets the RTD/charter boundary. Pushing the right dot left shrinks the charter &mdash; with free RTD passes, that's nearly free to do.</p>
+      </div>
+
+      <div class="sim-divider"></div>
+
+      <div class="sim-row" style="margin-bottom:0;">
+        <div class="sim-row-head">
+          <div class="name">Blue River Events Charter<small>The right-hand segment above</small></div>
+        </div>
+        <p class="hint">Use the charter headcount above to size the bus below.</p>
+
+        <div class="sim-bus-controls">
+          <div class="sim-field">
+            <label for="busSize">Bus Size</label>
+            <select id="busSize">
+              <option value="14">14-passenger van &mdash; $205/hr (4hr min)</option>
+              <option value="27">27-passenger bus &mdash; $275/hr (5hr min)</option>
+              <option value="40">40-passenger bus &mdash; $295/hr (5hr min)</option>
+              <option value="50" selected>50-passenger bus &mdash; $315/hr (5hr min)</option>
+            </select>
+          </div>
+          <div class="sim-field">
+            <label for="busQty">Quantity</label>
+            <input type="number" id="busQty" value="1" min="1" max="6" step="1">
+          </div>
+          <div class="sim-field">
+            <label for="busHours">Hours Used / Day</label>
+            <input type="number" id="busHours" value="5" min="1" max="14" step="1">
+          </div>
+          <div class="sim-field">
+            <label for="tripsPerDay">Round Trips / Bus / Day</label>
+            <input type="number" id="tripsPerDay" value="5" min="1" max="12" step="1">
+          </div>
+        </div>
+        <p class="hint" style="margin-top:12px;">Each round trip carries an outbound load <i>and</i> a return load &mdash; so 100 charter riders actually represent 200 seat-legs (100 out, 100 back) to be spread across the day's round trips.</p>
+      </div>
+
+      <div class="sim-readout">
+        <div class="ro-card highlight">
+          <div class="ro-label">Per-Trip Capacity</div>
+          <div class="ro-value" id="roCapacity">50 <small>seats/trip</small></div>
+        </div>
+        <div class="ro-card">
+          <div class="ro-label">Total Trips / Day</div>
+          <div class="ro-value" id="roTrips">5 <small>trips</small></div>
+        </div>
+        <div class="ro-card highlight" id="roLoadCard">
+          <div class="ro-label">Avg. Riders / Trip</div>
+          <div class="ro-value" id="roLoad">20 <small>people</small></div>
+        </div>
+        <div class="ro-card" id="roPctCard">
+          <div class="ro-label">Avg. Capacity Used</div>
+          <div class="ro-value" id="roPct">50% <small>of bus</small></div>
+        </div>
+        <div class="ro-card" id="roFitCard">
+          <div class="ro-label">Seats vs. Avg. Load</div>
+          <div class="ro-value" id="roFit">+30 <small>spare</small></div>
+        </div>
+        <div class="ro-card">
+          <div class="ro-label">Charter Cost / Day</div>
+          <div class="ro-value" id="roCost">$315</div>
+        </div>
+        <div class="ro-card">
+          <div class="ro-label">Cost per Charter Rider</div>
+          <div class="ro-value" id="roPerRider">$3.15</div>
+        </div>
+        <div class="ro-card">
+          <div class="ro-label">RTD Fare Cost (free)</div>
+          <div class="ro-value" id="roRtdCost">$0 <small>was $900</small></div>
+        </div>
+        <div class="ro-card">
+          <div class="ro-label">4-Day Charter Total</div>
+          <div class="ro-value" id="roTotal4">$1,260</div>
+        </div>
+      </div>
+
+      <div class="sim-status ok" id="simStatus">Comfortable fit &mdash; the charter has room to spare.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ THE TRIANGLE ============ -->
+<section class="triangle-section" id="map">
+  <div class="wrap">
+    <div class="eyebrow">The Geography</div>
+    <h2 style="font-size:2.4rem; margin-bottom:18px;">Three close stops, one long hop.</h2>
+    <p style="margin-bottom:28px; opacity:0.85;">The hotel, the church, and the regional bus stop are close enough to walk between in a pinch. That's what makes the shuttle loop efficient &mdash; one short local hop, then everyone funnels onto the same Boulder-bound route.</p>
+    <ul class="leg-list">
+      <li><span class="leg-time">0.7 mi</span><div class="leg-label"><b>Hotel &harr; Ascent Church</b><span>2-minute drive, walkable in good weather</span></div></li>
+      <li><span class="leg-time">0.8 mi</span><div class="leg-label"><b>Ascent Church &harr; US36 &amp; McCaslin</b><span>Directly across McCaslin Blvd from the church</span></div></li>
+      <li><span class="leg-time">~18 min</span><div class="leg-label"><b>McCaslin &harr; Downtown Boulder</b><span>By charter, US36 corridor, ~7&ndash;8 miles</span></div></li>
+      <li><span class="leg-time">~30 min</span><div class="leg-label"><b>McCaslin &harr; Boulder via Flatiron Flyer</b><span>RTD regional route, every 10&ndash;15 min at peak</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ LIVE MAP ============ -->
+<section class="livemap-section" id="livemap">
+  <div class="wrap">
+    <div class="eyebrow on-dark">On the Ground</div>
+    <h2 style="font-size:2.6rem; max-width:18ch;">All three routes, one real map.</h2>
+    <p style="margin-top:14px;">Toggle each option to see how it actually traces across Louisville and Boulder. The free RTD/Flatiron Flyer route follows the US36 corridor; the charter runs a more direct line into Pearl Street; personal cars make the short hop to the McCaslin park-n-ride.</p>
+
+    <div class="livemap-card">
+      <div id="liveMap"></div>
+      <div class="livemap-controls">
+        <label><span class="swatch" style="background:#C1453B;"></span><input type="checkbox" id="toggleCars" checked> Personal Cars &rarr; McCaslin P&amp;R</label>
+        <label><span class="swatch" style="background:#8FBF7F;"></span><input type="checkbox" id="toggleRtd" checked> Flatiron Flyer &rarr; Boulder (US36)</label>
+        <label><span class="swatch" style="background:#E8A23D;"></span><input type="checkbox" id="toggleCharter" checked> Charter &rarr; Pearl St, Boulder</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DAILY RHYTHM ============ -->
+<section class="rhythm-section" id="rhythm">
+  <div class="wrap">
+    <div class="eyebrow on-dark">The Daily Rhythm</div>
+    <h2 style="font-size:2.6rem; max-width:18ch;">Five waves of films, two waves of demand.</h2>
+    <p style="margin-top:14px;">Sundance hasn't released its 2027 Boulder program yet, but Park City's program has run on a consistent rhythm for years &mdash; four to five screening blocks a day, with two clear surges. The shuttle plan is built around those surges, not the quiet hours.</p>
+
+    <div class="timeline">
+      <div class="timeline-track">
+        <div class="tl-seg" style="left:0%; width:16%; background:#E8A23D;">Surge&nbsp;1</div>
+        <div class="tl-seg" style="left:16%; width:24%; background:#7E97AC;">Films</div>
+        <div class="tl-seg" style="left:40%; width:24%; background:#E8A23D;">Surge&nbsp;2</div>
+        <div class="tl-seg" style="left:64%; width:12%; background:#C1453B; color:#F6F1E6;">Late Return</div>
+        <div class="tl-seg" style="left:76%; width:24%; background:#1E2D40; color:#7E97AC; border-right:none;">Midnight</div>
+      </div>
+      <div class="tl-axis">
+        <span>11:30am</span><span>1:30pm</span><span>4:30pm</span><span>7:30pm</span><span>12am</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i style="background:#E8A23D;"></i> Demand surge &mdash; charter buses run</span>
+      <span><i style="background:#7E97AC;"></i> Screening block, lighter movement</span>
+      <span><i style="background:#C1453B;"></i> Evening return surge</span>
+      <span><i style="background:#1E2D40; border:1px solid #7E97AC;"></i> Midnight tail &mdash; rideshare picks up slack</span>
+    </div>
+
+    <div class="wave-cards">
+      <div class="wave-card">
+        <div class="wnum">WAVE 01</div>
+        <h3>11:30&ndash;1:30</h3>
+        <div class="wtime">Highest pressure of the day</div>
+        <p>The hotel shuttle switches to its triangle loop (hotel/Ascent/RTD) right at 11:30 &mdash; just as class lets out &mdash; feeding the RTD stop and absorbing the first surge at no extra cost.</p>
+      </div>
+      <div class="wave-card">
+        <div class="wnum">WAVE 02</div>
+        <h3>1:30&ndash;4:30</h3>
+        <div class="wtime">Steady afternoon flow</div>
+        <p>The hotel shuttle's triangle loop is still running (until 5:30), continuing to connect the hotel, church, and RTD stop for mixed outbound/return traffic.</p>
+      </div>
+      <div class="wave-card">
+        <div class="wnum">WAVE 03</div>
+        <h3>4:30&ndash;7:30</h3>
+        <div class="wtime">Prime premiere slot</div>
+        <p>The festival's marquee block &mdash; dinner plus a film. Generates the evening's biggest return surge afterward.</p>
+      </div>
+      <div class="wave-card">
+        <div class="wnum">WAVE 04</div>
+        <h3>7:30&ndash;midnight</h3>
+        <div class="wtime">Smaller, self-selecting crowd</div>
+        <p>Late and "Midnight" series screenings. One smaller bus on a loose loop, rideshare for stragglers after 1:30am.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COST TICKET ============ -->
+<section class="cost-section" id="cost">
+  <div class="wrap">
+    <div class="eyebrow">The Daily Cost</div>
+    <h2 style="font-size:2.6rem; max-width:18ch;">Charter rates are hourly, with a minimum.</h2>
+    <p style="margin-top:14px; opacity:0.85;">Each charter price is an hourly rate with a minimum number of hours billed regardless of usage &mdash; e.g. the 27-passenger bus is $275/hr with a 5-hour minimum, so a single booking costs at least $1,375 even if it's only on the road for three of those hours. With the hotel shuttle now covering the hotel/Ascent/RTD triangle from 11:30&ndash;5:30 at no extra cost, the charter fleet only needs to cover the Boulder run itself: an evening bus and a late-night return loop.</p>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <span class="tt">Daily Charter Summary</span>
+        <span class="ts">JAN 26&ndash;29 &middot; 4 SERVICE DAYS</span>
+      </div>
+      <table>
+        <tr>
+          <th>Vehicle</th><th>Window</th><th>Role</th><th class="num">Rate</th><th class="num">Daily (incl. min)</th>
+        </tr>
+        <tr>
+          <td>Hotel Shuttle Van</td><td>7:00&ndash;8:30am, 11:30am&ndash;5:30pm</td><td>Hotel/Ascent/RTD triangle</td><td class="num">&mdash;</td><td class="num">Included</td>
+        </tr>
+        <tr>
+          <td>Charter Bus &middot; 50-pax</td><td>5:00&ndash;10:00pm (5hr min)</td><td>Evening Boulder run</td><td class="num">$315/hr</td><td class="num">$1,575</td>
+        </tr>
+        <tr>
+          <td>Charter Bus &middot; 27-pax</td><td>9:00pm&ndash;2:00am (5hr min)</td><td>Late-night return loop</td><td class="num">$275/hr</td><td class="num">$1,375</td>
+        </tr>
+        <tr>
+          <td>Rideshare float</td><td>After 2:00am</td><td>Midnight-screening stragglers</td><td class="num">&mdash;</td><td class="num">$200&ndash;300</td>
+        </tr>
+      </table>
+      <div class="ticket-foot">
+        <div>
+          <div class="label">Per-day charter total</div>
+          <div class="amount">$2,950</div>
+        </div>
+        <div>
+          <div class="label">4-day total</div>
+          <div class="amount">$11,800</div>
+        </div>
+        <div>
+          <div class="label">vs. 400 &times; RTD round-trip ($6/day)</div>
+          <div class="amount">$2,400/day</div>
+        </div>
+      </div>
+      <div class="ticket-note">Every charter line item is billed at its 5-hour (or 4-hour, for the 14-pax van) minimum even if actual road time is shorter &mdash; so the real lever for cost control is whether a bus is booked at all, not how long each individual trip takes. Use the simulator below to test how shrinking the charter group (more cars + more free RTD riders) changes which bus sizes and quantities are actually needed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDENT GUIDE ============ -->
+<section class="guide-section" id="guide">
+  <div class="wrap">
+    <div class="eyebrow on-dark">For Attendees</div>
+    <h2 style="font-size:2.6rem; max-width:20ch; color:var(--paper);">How to actually get around, in plain terms.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="sn">01</div>
+        <div>
+          <h3>Morning &mdash; ride the hotel van to class</h3>
+          <p>The hotel shuttle runs continuous loops from the lobby to Ascent Community Church before 8am. It's a two-minute hop &mdash; no need to rush, just don't miss the last loop.</p>
+          <span class="tag free">Included with lodging</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">02</div>
+        <div>
+          <h3>After class &mdash; ride the triangle loop to the RTD stop</h3>
+          <p>From 11:30am, the hotel shuttle runs a continuous loop between the hotel, Ascent Church, and the US36 &amp; McCaslin RTD stop &mdash; right where you catch the Flatiron Flyer into Boulder.</p>
+          <span class="tag free">Included &middot; Triangle loop</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">03</div>
+        <div>
+          <h3>In Boulder &mdash; the HOP bus is free during the festival</h3>
+          <p>Boulder's HOP circulator runs along nearly every Sundance venue and is expected to be free for the duration of the festival. Download the Transit app for live arrival times.</p>
+          <span class="tag free">Free in-festival</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">04</div>
+        <div>
+          <h3>Heading back mid-afternoon or early evening</h3>
+          <p>Until 5:30pm, the hotel shuttle's triangle loop carries you between the RTD stop, Ascent, and the hotel. After 5pm, a chartered bus runs a direct evening loop from Pearl Street through about 10pm.</p>
+          <span class="tag">Triangle loop + Chartered evening bus</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">05</div>
+        <div>
+          <h3>Late night &mdash; a smaller loop, then rideshare</h3>
+          <p>From 8:30pm to about 1:30am, a smaller shuttle loops every 30&ndash;40 minutes. After that, Uber or Lyft covers the last stretch &mdash; a ride credit pool will be available, roughly $25&ndash;40 per trip.</p>
+          <span class="tag">Chartered + rideshare</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">06</div>
+        <div>
+          <h3>Driving yourself? Park once, ride the rest</h3>
+          <p>Skip downtown Boulder parking entirely. Leave your car at the US36 &amp; McCaslin Park-n-Ride &mdash; right across from Ascent Church &mdash; and use the same shuttle and transit network as everyone else. Arrive early; the lot fills by mid-morning.</p>
+          <span class="tag">Free RTD lot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="open-section" id="open">
+  <div class="wrap">
+    <div class="eyebrow">Still Confirming</div>
+    <h2 style="font-size:2.4rem;">What's locked, what's still open.</h2>
+    <p style="margin-top:10px; opacity:0.85;">This plan is built on the most reliable information available as of mid-2026. A few details depend on Sundance and the City of Boulder finalizing their own plans closer to January 2027 &mdash; we'll update this page as those firm up.</p>
+    <ul class="open-list">
+      <li><span class="ck"></span><span>Whether RTD's regional Flatiron Flyer fare (currently ~$3) gets the same festival-period treatment as Boulder's free HOP bus.</span></li>
+      <li><span class="ck"></span><span>HOP's extended late-night hours during the festival &mdash; our late-night charter schedule should complement, not duplicate, that service.</span></li>
+      <li><span class="ck"></span><span>Sundance's actual 2027 venue and screening schedule, expected late 2026 &mdash; will let us refine the "wave" timing against real program data.</span></li>
+      <li><span class="ck"></span><span>Whether to subsidize RTD fares for students directly or rely on the chartered loop and free HOP to cover essentially all trips.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span><b>Leveraged Effect LLC</b> &middot; prepared for Windrider Institute &middot; 2027 Summit logistics</span>
+    <span>Working draft &middot; updated as Sundance &amp; RTD details are confirmed</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  const map = L.map('liveMap', {scrollWheelZoom:false}).setView([39.998, -105.205], 11);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  const POINTS = {
+    hotel:   [39.9589808, -105.1636109],
+    church:  [39.962236,  -105.1608354],
+    mccaslin:[39.9584077, -105.1685471],
+    boulder: [40.0192048, -105.2774254]
+  };
+
+  function marker(latlng, label, color){
+    return L.circleMarker(latlng, {
+      radius:7, color:color, weight:2, fillColor:color, fillOpacity:0.9
+    }).addTo(map).bindPopup(label);
+  }
+
+  marker(POINTS.hotel,   'Hotel Block (Courtyard / Residence Inn)', '#C1453B');
+  marker(POINTS.church,  'Ascent Community Church', '#C1453B');
+  marker(POINTS.mccaslin,'US36 &amp; McCaslin Park-n-Ride / RTD', '#8FBF7F');
+  marker(POINTS.boulder, 'Downtown Boulder / Pearl St venues', '#E8A23D');
+
+  // Personal cars: hotel/church area -> McCaslin park-n-ride (short hop)
+  const carsLine = L.polyline([
+    POINTS.hotel,
+    [39.9592, -105.1665],
+    POINTS.mccaslin
+  ], {color:'#C1453B', weight:4, opacity:0.85}).addTo(map)
+    .bindPopup('Personal cars: park at the free US36 &amp; McCaslin RTD lot, then transfer.');
+
+  // RTD Flatiron Flyer: McCaslin -> Boulder via US36 corridor
+  const rtdLine = L.polyline([
+    POINTS.mccaslin,
+    [39.9700, -105.2050],
+    [39.9988, -105.2425],
+    [40.0050, -105.2550],
+    POINTS.boulder
+  ], {color:'#8FBF7F', weight:4, opacity:0.85}).addTo(map)
+    .bindPopup('RTD Flatiron Flyer along US36 &mdash; free festival pass.');
+
+  // Charter: hotel/church -> Boulder direct
+  const charterLine = L.polyline([
+    POINTS.church,
+    POINTS.hotel,
+    [39.9650, -105.1850],
+    [39.9850, -105.2200],
+    [40.0050, -105.2550],
+    POINTS.boulder
+  ], {color:'#E8A23D', weight:4, dashArray:'8 6', opacity:0.85}).addTo(map)
+    .bindPopup('Blue River Events charter &mdash; direct evening/late-night run.');
+
+  document.getElementById('toggleCars').addEventListener('change', e=>{
+    e.target.checked ? carsLine.addTo(map) : map.removeLayer(carsLine);
+  });
+  document.getElementById('toggleRtd').addEventListener('change', e=>{
+    e.target.checked ? rtdLine.addTo(map) : map.removeLayer(rtdLine);
+  });
+  document.getElementById('toggleCharter').addEventListener('change', e=>{
+    e.target.checked ? charterLine.addTo(map) : map.removeLayer(charterLine);
+  });
+})();
+</script>
+<script>
+(function(){
+  const BUS = {
+    14: {rate:205, min:4},
+    27: {rate:275, min:5},
+    40: {rate:295, min:5},
+    50: {rate:315, min:5}
+  };
+
+  const totalEl = document.getElementById('totalPeople');
+  const handle1 = document.getElementById('handle1');
+  const handle2 = document.getElementById('handle2');
+  const comboTrack = document.getElementById('comboTrack');
+  const carsVal = document.getElementById('carsVal');
+  const rtdVal = document.getElementById('rtdVal');
+  const charterVal = document.getElementById('charterVal');
+  const busSize = document.getElementById('busSize');
+  const busQty = document.getElementById('busQty');
+  const busHours = document.getElementById('busHours');
+  const tripsPerDay = document.getElementById('tripsPerDay');
+
+  const roCapacity = document.getElementById('roCapacity');
+  const roTrips = document.getElementById('roTrips');
+  const roLoad = document.getElementById('roLoad');
+  const roLoadCard = document.getElementById('roLoadCard');
+  const roPct = document.getElementById('roPct');
+  const roPctCard = document.getElementById('roPctCard');
+  const roFit = document.getElementById('roFit');
+  const roFitCard = document.getElementById('roFitCard');
+  const roCost = document.getElementById('roCost');
+  const roPerRider = document.getElementById('roPerRider');
+  const roRtdCost = document.getElementById('roRtdCost');
+  const roTotal4 = document.getElementById('roTotal4');
+  const simStatus = document.getElementById('simStatus');
+
+  function fmt(n){ return '$' + n.toLocaleString('en-US', {maximumFractionDigits:2}); }
+
+  function recalc(){
+    let total = parseInt(totalEl.value, 10) || 0;
+    if(total < 0) total = 0;
+
+    handle1.max = total;
+    handle2.max = total;
+
+    let h1 = parseInt(handle1.value, 10) || 0;
+    let h2 = parseInt(handle2.value, 10) || 0;
+    if(h1 > total) h1 = total;
+    if(h2 > total) h2 = total;
+    if(h1 > h2){ const t = h1; h1 = h2; h2 = t; }
+    handle1.value = h1;
+    handle2.value = h2;
+
+    const cars = h1;
+    const rtd = h2 - h1;
+    const charter = total - h2;
+
+    carsVal.textContent = cars;
+    rtdVal.textContent = rtd;
+    charterVal.textContent = charter;
+
+    const p1 = total > 0 ? (h1/total*100) : 0;
+    const p2 = total > 0 ? (h2/total*100) : 0;
+    comboTrack.style.setProperty('--p1', p1 + '%');
+    comboTrack.style.setProperty('--p2', p2 + '%');
+
+    // bus math
+    const size = parseInt(busSize.value, 10);
+    let qty = parseInt(busQty.value, 10) || 1;
+    if(qty < 1) qty = 1;
+    busQty.value = qty;
+
+    let trips = parseInt(tripsPerDay.value, 10) || 1;
+    if(trips < 1) trips = 1;
+    tripsPerDay.value = trips;
+
+    const spec = BUS[size];
+    let hours = parseInt(busHours.value, 10) || spec.min;
+    if(hours < spec.min) hours = spec.min;
+    busHours.value = hours;
+    busHours.min = spec.min;
+
+    const totalTrips = qty * trips;
+    const dailyCost = spec.rate * hours * qty;
+    const totalSeatLegs = charter * 2; // each rider needs an outbound seat AND a return seat
+    const avgLoad = charter > 0 ? (totalSeatLegs / totalTrips) : 0;
+    const diff = size - avgLoad;
+    const perRider = charter > 0 ? dailyCost / charter : dailyCost;
+
+    roCapacity.textContent = size + ' seats/trip';
+    roTrips.textContent = totalTrips + ' trips';
+    roLoad.innerHTML = (Math.round(avgLoad*10)/10) + ' <small>people</small>';
+    const pct = size > 0 ? (avgLoad / size * 100) : 0;
+    roPct.innerHTML = (Math.round(pct*10)/10) + '% <small>of bus</small>';
+    roPctCard.className = pct > 100 ? 'ro-card warn' : (pct < 40 ? 'ro-card over' : 'ro-card ok');
+    roCost.textContent = fmt(dailyCost);
+    roPerRider.textContent = charter > 0 ? fmt(perRider) : '\u2014';
+    roTotal4.textContent = fmt(dailyCost * 4);
+
+    const rtdWouldHaveCost = rtd * 3;
+    roRtdCost.innerHTML = '$0 <small>was ~' + fmt(rtdWouldHaveCost) + '</small>';
+
+    if(diff >= 0){
+      roFit.innerHTML = '+' + (Math.round(diff*10)/10) + ' <small>spare/trip</small>';
+      roFitCard.className = 'ro-card ok';
+      roLoadCard.className = 'ro-card highlight';
+    } else {
+      roFit.innerHTML = (Math.round(diff*10)/10) + ' <small>over/trip</small>';
+      roFitCard.className = 'ro-card warn';
+      roLoadCard.className = 'ro-card warn';
+    }
+
+    if(charter === 0){
+      simStatus.className = 'sim-status ok';
+      simStatus.textContent = 'No charter needed at all \u2014 cars and the free RTD pass cover everyone. The fleet below is idle.';
+    } else if(diff < 0){
+      const neededSize = Math.ceil(avgLoad);
+      simStatus.className = 'sim-status warn';
+      simStatus.textContent = 'Average load (' + (Math.round(avgLoad*10)/10) + '/trip) exceeds a ' + size + '-seat bus \u2014 add more round trips, add a unit, or move up to a bigger bus (need \u2265' + neededSize + ' seats).';
+    } else if(avgLoad < size * 0.4){
+      simStatus.className = 'sim-status over';
+      simStatus.textContent = 'Each trip is averaging only ' + (Math.round(avgLoad*10)/10) + ' of ' + size + ' seats \u2014 spread thin across ' + totalTrips + ' trips. Consider fewer round trips or a smaller bus.';
+    } else {
+      simStatus.className = 'sim-status ok';
+      simStatus.textContent = 'Comfortable fit \u2014 averaging ' + (Math.round(avgLoad*10)/10) + ' of ' + size + ' seats across ' + totalTrips + ' trips spread over the afternoon and evening.';
+    }
+  }
+
+  busSize.addEventListener('change', ()=>{
+    busHours.value = BUS[parseInt(busSize.value,10)].min;
+    recalc();
+  });
+
+  [totalEl, handle1, handle2, busSize, busQty, busHours, tripsPerDay].forEach(el=>{
+    el.addEventListener('input', recalc);
+    el.addEventListener('change', recalc);
+  });
+
+  recalc();
+})();
+</script>
+</body>
+
+</html>
